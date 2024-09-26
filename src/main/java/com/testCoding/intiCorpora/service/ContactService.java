@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.testCoding.intiCorpora.Entity.Contact;
 import com.testCoding.intiCorpora.Entity.UserProfile;
+import com.testCoding.intiCorpora.controller.Config;
 import com.testCoding.intiCorpora.execption.NotFoundException;
 import com.testCoding.intiCorpora.model.dto.DtoAddressByUser;
 import com.testCoding.intiCorpora.model.request.CreateContactRequest;
@@ -16,6 +17,16 @@ import com.testCoding.intiCorpora.model.response.responseListAddressByUser;
 import com.testCoding.intiCorpora.repository.ContactRepository;
 import com.testCoding.intiCorpora.repository.UserRepository;
 
+
+// @Entity
+// @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"namaContoh","deskripsiContoh","contohDouble"},name = "uhuy"),
+// indexes =
+//         {
+//                 @Index(name = "idx_contoh_char",columnList = "contohChar"),
+//                 @Index(name = "idx_contoh_short",columnList = "contohShort")
+//         })
+
+
 @Service
 public class ContactService {
     @Autowired
@@ -23,6 +34,8 @@ public class ContactService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private Config config;
 
     public Contact createContact(CreateContactRequest contactRequest){
         Contact contact = new Contact();
@@ -32,6 +45,8 @@ public class ContactService {
         }
         contact.setAddress(contactRequest.getAddress());
         contact.setUser(user);
+
+        System.out.println("ini adalah "+config.getTest());
         
         return contactRepository.save(contact);
     }

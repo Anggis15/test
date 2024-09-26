@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,12 @@ public class UserController {
     public WebResponse<UserProfile> createUser(@RequestBody CreateUserRequest userRequest){
         UserProfile user = userService.createUser(userRequest);
         return WebResponse.<UserProfile>builder().code(CodeMessage.Success_Response.toString()).data(user).build();
+    }
+    @GetMapping(path="/v1/delete/{id}",
+                produces=MediaType.APPLICATION_JSON_VALUE)
+    public WebResponse<String> deleteUser(@PathVariable(name = "id") String id){
+        String delete = userService.deleteUser(id);
+        return WebResponse.<String>builder().code(CodeMessage.Success_Response.toString()).data(delete).build();
     }
     @GetMapping(path="/v1/getAll",
                 produces=MediaType.APPLICATION_JSON_VALUE)

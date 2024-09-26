@@ -3,6 +3,7 @@ package com.testCoding.intiCorpora.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ import com.testCoding.intiCorpora.service.ContactService;
 @Controller
 @RestController
 @RequestMapping("/api/contact")
+@Configuration("test")
 public class ContactController {
     @Autowired
     private ContactService contactService;
@@ -52,5 +54,16 @@ public class ContactController {
         return WebResponse.<responseListAddressByUser>builder().code(CodeMessage.Success_Response.toString()).data(addresses).build(); 
 
     }
+    @GetMapping(
+        path= "/v1/delete/{id}",
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public WebResponse<String> delete(@PathVariable(name = "id") String id){
+        String delete = contactService.deleteContactById(id);
+        return WebResponse.<String>builder().code(CodeMessage.Success_Response.toString()).data(delete).build(); 
+
+    }
+
+    String a = "test";
 
 }

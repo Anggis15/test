@@ -2,11 +2,15 @@ package com.testCoding.intiCorpora.Entity;
 
 
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,4 +28,6 @@ public class UserProfile {
     private String id;
     private String name; 
     private int age;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Contact> contacts;
 }
